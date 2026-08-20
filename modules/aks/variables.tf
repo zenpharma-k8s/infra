@@ -1,5 +1,10 @@
-variable "cluster_name" {
-  description = "AKS cluster name"
+variable "project" {
+  description = "Project name"
+  type        = string
+}
+
+variable "env" {
+  description = "Environment name (dev, qa, prod)"
   type        = string
 }
 
@@ -9,63 +14,47 @@ variable "location" {
 }
 
 variable "resource_group_name" {
-  description = "Resource group name"
+  description = "Resource group for the AKS cluster"
   type        = string
 }
 
-variable "dns_prefix" {
-  description = "DNS prefix for the AKS cluster"
+variable "subnet_id" {
+  description = "Subnet ID for AKS nodes"
   type        = string
 }
 
 variable "kubernetes_version" {
-  description = "Kubernetes version"
+  description = "Kubernetes version for the AKS cluster"
   type        = string
-  default     = null
+  default     = "1.31"
 }
 
-variable "system_vm_size" {
-  description = "VM size for the system node pool"
+variable "vm_size" {
+  description = "VM size for the default node pool"
   type        = string
-  default     = "Standard_D4s_v5"
+  default     = "Standard_B2s"
 }
 
-variable "system_node_count" {
-  description = "Number of system nodes"
+variable "desired_size" {
+  description = "Starting number of worker nodes"
   type        = number
   default     = 2
 }
 
-variable "system_subnet_id" {
-  description = "Subnet ID for the AKS system node pool"
-  type        = string
-}
-
-variable "os_disk_size_gb" {
-  description = "OS disk size"
+variable "min_size" {
+  description = "Minimum number of worker nodes"
   type        = number
-  default     = 128
+  default     = 1
 }
 
-variable "service_cidr" {
-  description = "Kubernetes service CIDR"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "dns_service_ip" {
-  description = "Kubernetes DNS service IP"
-  type        = string
-  default     = "10.0.0.10"
-}
-
-variable "log_analytics_workspace_id" {
-  description = "Log Analytics workspace ID"
-  type        = string
+variable "max_size" {
+  description = "Maximum number of worker nodes"
+  type        = number
+  default     = 3
 }
 
 variable "tags" {
-  description = "Tags for AKS resources"
+  description = "Common resource tags"
   type        = map(string)
   default     = {}
 }
