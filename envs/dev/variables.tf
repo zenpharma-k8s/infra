@@ -32,3 +32,42 @@ variable "tags" {
   description = "Common resource tags"
   default     = {}
 }
+
+variable "key_vault_name" {
+  description = "Globally unique Azure Key Vault name"
+  type        = string
+}
+
+variable "project" {
+  description = "Project name"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+  default     = "dev"
+}
+
+variable "subscription_id" {
+  description = "Azure subscription ID"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Administrator password for the PostgreSQL Flexible Server"
+  type        = string
+  sensitive   = true
+}
+
+variable "jwt_secret" {
+  description = "JWT signing secret for the application"
+  type        = string
+  sensitive   = true
+}
+
+variable "github_org" {
+  description = "GitHub username or organization that owns frontend and backend"
+  type        = string
+  default     = "zenpharma"
+}
