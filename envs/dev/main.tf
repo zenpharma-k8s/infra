@@ -1,78 +1,34 @@
+locals {
+  project  = "pharma"
+  env      = "dev"
+  location = "eastus"
+
+  common_tags = {
+    Project   = local.project
+    Env       = local.env
+    ManagedBy = "terraform"
+  }
+}
+
 data "azurerm_client_config" "current" {}
-module "network" {
-  source = "../../modules/virtual-network"
 
-  resource_group_name = var.resource_group_name
-  location            = var.location
-
-  vnet_name           = var.vnet_name
-  vnet_address_space  = var.vnet_address_space
-
-  subnets = var.subnets
-
-  tags = var.tags
+resource "azurerm_resource_group" "main" {
+  name     = "${local.project}-${local.env}-rg"
+  location = local.location
+  tags     = local.common_tags
 }
 
-module "key_vault" {
-  source = "../../modules/key-vault"
+module "vnet" {
+  source = "../../modules/vnet"
 
-  key_vault_name      = var.key_vault_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.this.name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
+  project              = local.project
+  env                  = local.env
+  location             = local.location
+  resource_group_name  = azurerm_resource_group.main.name
+  tags                 = local.common_tags
 
-  tags = {
-    Project     = var.project
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-  }
-}
-
-# module "aks" {
-#   source = "../../modules/aks"
-
-#   cluster_name       = var.aks_cluster_name
-#   location           = var.location
-#   resource_group_name = azurerm_resource_group.this.name
-
-#   dns_prefix         = var.aks_dns_prefix
-#   kubernetes_version  = var.kubernetes_version
-
-#   system_vm_size     = var.system_vm_size
-#   system_node_count  = var.system_node_count
-#   system_subnet_id   = module.network.aks_subnet_id
-#   os_disk_size_gb    = 128
-
-#   service_cidr       = var.service_cidr
-#   dns_service_ip     = var.dns_service_ip
-
-#   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
-
-#   tags = {
-#     Project     = var.project
-#     Environment = var.environment
-#     ManagedBy   = "Terraform"
-#   }
-# }
-
-module "identity" {
-  source = "../../modules/identity"
-
-  project             = var.project
-  environment         = var.environment
-  location            = var.location
-  resource_group_name = azurerm_resource_group.this.name
-
-  key_vault_id = module.key_vault.key_vault_id
-
-  aks_oidc_issuer_url = module.aks.oidc_issuer_url
-
-  namespace            = "myapp"
-  service_account_name = "myapp-sa"
-
-  tags = {
-    Project     = var.project
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-  }
+  vnet_cidr              = "10.0.0.0/16"
+  public_subnet_cidrs    = ["10.0.1.0/24"]
+  private_subnet_cidrs   = ["10.0.3.0/24"]
+  database_subnet_cidrs  = ["10.0.5.0/24"]
 }
