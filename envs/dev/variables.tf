@@ -33,10 +33,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "key_vault_name" {
-  description = "Globally unique Azure Key Vault name"
-  type        = string
-}
 
 variable "project" {
   description = "Project name"
