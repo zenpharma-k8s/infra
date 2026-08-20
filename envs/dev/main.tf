@@ -1,5 +1,5 @@
 locals {
-  project  = "pharma"
+  project  = "zenfarma"
   env      = "dev"
   location = "eastus"
 
