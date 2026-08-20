@@ -32,3 +32,19 @@ variable "tags" {
   description = "Common resource tags"
   default     = {}
 }
+
+variable "key_vault_name" {
+  description = "Globally unique Azure Key Vault name"
+  type        = string
+}
+
+variable "project" {
+  description = "Project name"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+  default     = "dev"
+}
