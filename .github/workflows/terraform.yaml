@@ -67,7 +67,7 @@ jobs:
         working-directory: envs/dev
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v4
     - uses: azure/login@v2 # replaces configure-aws-credentials
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -82,7 +82,7 @@ jobs:
       uses: actions/download-artifact@v7
       with:
         name: tfplan
-        path: envs/dev
+        path: envs/dev/tfplan
 
     - name: Terraform Apply
       run: |
@@ -105,7 +105,7 @@ jobs:
         working-directory: envs/dev
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v4
 
     - uses: azure/login@v2 # replaces configure-aws-credentials
       with:
