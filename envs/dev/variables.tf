@@ -1,49 +1,49 @@
-variable "resource_group_name" {
-  type        = string
-  description = "Resource Group name"
-}
+# variable "resource_group_name" {
+#   type        = string
+#   description = "Resource Group name"
+# }
 
-variable "location" {
-  type        = string
-  description = "Azure region"
-}
+# variable "location" {
+#   type        = string
+#   description = "Azure region"
+# }
 
-variable "vnet_name" {
-  type        = string
-  description = "Virtual Network name"
-}
+# variable "vnet_name" {
+#   type        = string
+#   description = "Virtual Network name"
+# }
 
-variable "vnet_address_space" {
-  type        = list(string)
-  description = "Virtual Network address space"
-}
+# variable "vnet_address_space" {
+#   type        = list(string)
+#   description = "Virtual Network address space"
+# }
 
-variable "subnets" {
-  type = map(object({
-    name             = string
-    address_prefixes = list(string)
-  }))
+# variable "subnets" {
+#   type = map(object({
+#     name             = string
+#     address_prefixes = list(string)
+#   }))
 
-  description = "Subnet configuration"
-}
+#   description = "Subnet configuration"
+# }
 
-variable "tags" {
-  type        = map(string)
-  description = "Common resource tags"
-  default     = {}
-}
+# variable "tags" {
+#   type        = map(string)
+#   description = "Common resource tags"
+#   default     = {}
+# }
 
 
-variable "project" {
-  description = "Project name"
-  type        = string
-}
+# variable "project" {
+#   description = "Project name"
+#   type        = string
+# }
 
-variable "environment" {
-  description = "Environment name"
-  type        = string
-  default     = "dev"
-}
+# variable "environment" {
+#   description = "Environment name"
+#   type        = string
+#   default     = "dev"
+# }
 
 variable "subscription_id" {
   description = "Azure subscription ID"
@@ -65,5 +65,5 @@ variable "jwt_secret" {
 variable "github_org" {
   description = "GitHub username or organization that owns frontend and backend"
   type        = string
-  default     = "zenpharma"
+  default     = "zenpharma-k8s"
 }
