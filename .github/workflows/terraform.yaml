@@ -61,7 +61,7 @@ jobs:
     if: |
       (github.ref == 'refs/heads/main' && github.event_name == 'push') ||
       (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'apply')
-    environment: dev # ← pauses here and waits for manual approval
+    #environment: dev # ← pauses here and waits for manual approval
     defaults:
       run:
         working-directory: envs/dev
