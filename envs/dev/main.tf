@@ -60,11 +60,11 @@ module "acr" {
 }
 
 # Let AKS nodes pull from ACR without static credentials
-resource "azurerm_role_assignment" "aks_acr_pull" {
-  scope                = module.acr.id
-  role_definition_name = "AcrPull"
-  principal_id         = module.aks.kubelet_identity_object_id
-}
+# resource "azurerm_role_assignment" "aks_acr_pull" {
+#   scope                = module.acr.id
+#   role_definition_name = "AcrPull"
+#   principal_id         = module.aks.kubelet_identity_object_id
+# }
 
 # module "postgresql" {
 #   source = "../../modules/postgresql"
@@ -80,33 +80,33 @@ resource "azurerm_role_assignment" "aks_acr_pull" {
 #   tags                 = local.common_tags
 # }
 
-module "keyvault" {
-  source = "../../modules/keyvault"
+# module "keyvault" {
+#   source = "../../modules/keyvault"
 
-  project                 = local.project
-  env                     = local.env
-  location                = local.location
-  resource_group_name     = azurerm_resource_group.main.name
-  tenant_id               = data.azurerm_client_config.current.tenant_id
-  terraform_principal_id  = data.azurerm_client_config.current.object_id
-  db_username             = "pharmaadmin"
-  db_password             = var.db_password
-  db_host                 = module.postgresql.server_fqdn
-  jwt_secret              = var.jwt_secret
-  tags                    = local.common_tags
-}
+#   project                 = local.project
+#   env                     = local.env
+#   location                = local.location
+#   resource_group_name     = azurerm_resource_group.main.name
+#   tenant_id               = data.azurerm_client_config.current.tenant_id
+#   terraform_principal_id  = data.azurerm_client_config.current.object_id
+#   db_username             = "pharmaadmin"
+#   db_password             = var.db_password
+#   db_host                 = module.postgresql.server_fqdn
+#   jwt_secret              = var.jwt_secret
+#   tags                    = local.common_tags
+# }
 
-module "managed_identities" {
-  source = "../../modules/managed-identities"
+# module "managed_identities" {
+#   source = "../../modules/managed-identities"
 
-  project              = local.project
-  env                  = local.env
-  location             = local.location
-  resource_group_name  = azurerm_resource_group.main.name
-  aks_oidc_issuer_url  = module.aks.oidc_issuer_url
-  key_vault_id         = module.keyvault.key_vault_id
-  acr_id               = module.acr.id
-  aks_id               = module.aks.cluster_id
-  github_org           = var.github_org
-  tags                 = local.common_tags
-}
+#   project              = local.project
+#   env                  = local.env
+#   location             = local.location
+#   resource_group_name  = azurerm_resource_group.main.name
+#   aks_oidc_issuer_url  = module.aks.oidc_issuer_url
+#   key_vault_id         = module.keyvault.key_vault_id
+#   acr_id               = module.acr.id
+#   aks_id               = module.aks.cluster_id
+#   github_org           = var.github_org
+#   tags                 = local.common_tags
+# }
