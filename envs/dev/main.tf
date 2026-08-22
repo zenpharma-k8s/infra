@@ -33,21 +33,21 @@ module "vnet" {
   database_subnet_cidrs  = ["10.0.5.0/24"]
 }
 
-module "aks" {
-  source = "../../modules/aks"
+# module "aks" {
+#   source = "../../modules/aks"
 
-  project              = local.project
-  env                  = local.env
-  location             = local.location
-  resource_group_name  = azurerm_resource_group.main.name
-  subnet_id            = module.vnet.private_subnet_id
-  kubernetes_version   = "1.34"
-  vm_size              = "Standard_B2s"
-  min_size             = 1
-  max_size             = 4
-  desired_size         = 3
-  tags                 = local.common_tags
-}
+#   project              = local.project
+#   env                  = local.env
+#   location             = local.location
+#   resource_group_name  = azurerm_resource_group.main.name
+#   subnet_id            = module.vnet.private_subnet_id
+#   kubernetes_version   = "1.34"
+#   vm_size              = "Standard_B2s"
+#   min_size             = 1
+#   max_size             = 4
+#   desired_size         = 3
+#   tags                 = local.common_tags
+# }
 
 module "acr" {
   source = "../../modules/acr"
@@ -66,19 +66,19 @@ resource "azurerm_role_assignment" "aks_acr_pull" {
   principal_id         = module.aks.kubelet_identity_object_id
 }
 
-module "postgresql" {
-  source = "../../modules/postgresql"
+# module "postgresql" {
+#   source = "../../modules/postgresql"
 
-  project              = local.project
-  env                  = local.env
-  location             = local.location
-  resource_group_name  = azurerm_resource_group.main.name
-  vnet_id              = module.vnet.vnet_id
-  database_subnet_id   = module.vnet.database_subnet_id
-  username             = "pharmaadmin"
-  password             = var.db_password
-  tags                 = local.common_tags
-}
+#   project              = local.project
+#   env                  = local.env
+#   location             = local.location
+#   resource_group_name  = azurerm_resource_group.main.name
+#   vnet_id              = module.vnet.vnet_id
+#   database_subnet_id   = module.vnet.database_subnet_id
+#   username             = "pharmaadmin"
+#   password             = var.db_password
+#   tags                 = local.common_tags
+# }
 
 module "keyvault" {
   source = "../../modules/keyvault"
