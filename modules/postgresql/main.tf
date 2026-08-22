@@ -16,7 +16,7 @@ resource "azurerm_postgresql_flexible_server" "main" {
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  version = "17"
+  version = "15"
 
   delegated_subnet_id = var.database_subnet_id
   private_dns_zone_id = azurerm_private_dns_zone.postgres.id
