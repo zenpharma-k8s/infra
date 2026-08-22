@@ -40,7 +40,7 @@ module "aks" {
   env                  = local.env
   location             = local.location
   resource_group_name  = azurerm_resource_group.main.name
-  subnet_id            = module.vnet.private_subnet_id
+  subnet_id            = module.vnet.private_subnet_cidrs
   kubernetes_version   = "1.34"
   vm_size              = "Standard_B2s"
   min_size             = 1
