@@ -12,26 +12,26 @@ locals {
 
 data "azurerm_client_config" "current" {}
 
-resource "azurerm_resource_group" "main" {
-  name     = "${local.project}-${local.env}-rg"
-  location = local.location
-  tags     = local.common_tags
-}
+# resource "azurerm_resource_group" "main" {
+#   name     = "${local.project}-${local.env}-rg"
+#   location = local.location
+#   tags     = local.common_tags
+# }
 
-module "vnet" {
-  source = "../../modules/virtual-network"
+# module "vnet" {
+#   source = "../../modules/virtual-network"
 
-  project              = local.project
-  env                  = local.env
-  location             = local.location
-  resource_group_name  = azurerm_resource_group.main.name
-  tags                 = local.common_tags
+#   project              = local.project
+#   env                  = local.env
+#   location             = local.location
+#   resource_group_name  = azurerm_resource_group.main.name
+#   tags                 = local.common_tags
 
-  vnet_cidr              = "10.0.0.0/16"
-  public_subnet_cidrs    = ["10.0.1.0/24"]
-  private_subnet_cidrs   = ["10.0.3.0/24"]
-  database_subnet_cidrs  = ["10.0.5.0/24"]
-}
+#   vnet_cidr              = "10.0.0.0/16"
+#   public_subnet_cidrs    = ["10.0.1.0/24"]
+#   private_subnet_cidrs   = ["10.0.3.0/24"]
+#   database_subnet_cidrs  = ["10.0.5.0/24"]
+# }
 
 # module "aks" {
 #   source = "../../modules/aks"
@@ -49,15 +49,15 @@ module "vnet" {
 #   tags                 = local.common_tags
 # }
 
-module "acr" {
-  source = "../../modules/acr"
+# module "acr" {
+#   source = "../../modules/acr"
 
-  project              = local.project
-  env                  = local.env
-  location             = local.location
-  resource_group_name  = azurerm_resource_group.main.name
-  tags                 = local.common_tags
-}
+#   project              = local.project
+#   env                  = local.env
+#   location             = local.location
+#   resource_group_name  = azurerm_resource_group.main.name
+#   tags                 = local.common_tags
+# }
 
 # Let AKS nodes pull from ACR without static credentials
 # resource "azurerm_role_assignment" "aks_acr_pull" {
