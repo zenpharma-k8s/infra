@@ -104,7 +104,7 @@ jobs:
         terraform apply \
           -auto-approve \
           -no-color \
-          envs/dev/tfplan
+          tfplan
 
   # ── Destroy ───────────────────────────────────────────────────────────────
   destroy:
